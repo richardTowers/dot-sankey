@@ -2,8 +2,9 @@
 
 const fs = require('fs')
 const dot = require('graphlib-dot')
+const d3Sankey = require('d3-sankey')
 
-function dotSankey (buffer) {
+function dotToData (buffer) {
   let parsed
   try {
     parsed = dot.read(buffer)
@@ -19,12 +20,19 @@ function dotSankey (buffer) {
   return data
 }
 
+function dotToSankey (buffer) {
+  const sankey = d3Sankey.sankey()
+  const data = dotToData(buffer)
+  return sankey(data)
+}
+
 if (typeof require !== 'undefined' && require.main === module) {
   const stdinBuffer = fs.readFileSync(0, 'utf-8')
-  const data = dotSankey(stdinBuffer)
+  const data = dotToData(stdinBuffer)
   process.stdout.write(JSON.stringify(data, null, 2))
 }
 
 if (typeof module !== 'undefined') {
-  module.exports = dotSankey
+  module.exports.dotToData = dotToData
+  module.exports.dotToSankey = dotToSankey
 }
