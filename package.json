@@ -4,12 +4,19 @@
   "description": "Converts directed acyclic graphs in [DOT](https://graphviz.gitlab.io/_pages/doc/info/lang.html) format into Sankey diagrams using [D3](https://d3js.org/).",
   "main": "index.js",
   "scripts": {
-    "test": "npm run lint",
+    "test": "mocha && npm run lint",
     "lint": "standard"
   },
   "author": "Richard Towers",
   "license": "MIT",
   "devDependencies": {
+    "mocha": "^6.1.4",
     "standard": "^12.0.1"
+  },
+  "dependencies": {
+    "graphlib-dot": "^0.6.2"
+  },
+  "standard": {
+      "env": [ "mocha" ]
   }
 }
